@@ -1,108 +1,144 @@
 <html>
- <head>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
   <style>
-   @font-face {
-            font-family: 'Jhon Cream';
-            src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .fade-in {
-            animation: fadeIn 2s ease-in-out;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .bounce-in {
-            animation: bounceIn 2s ease-in-out;
-        }
-        @keyframes bounceIn {
-            0%, 20%, 40%, 60%, 80%, 100% {
-                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-            }
-            0% {
-                opacity: 0;
-                transform: scale3d(.3, .3, .3);
-            }
-            20% {
-                transform: scale3d(1.1, 1.1, 1.1);
-            }
-            40% {
-                transform: scale3d(.9, .9, .9);
-            }
-            60% {
-                opacity: 1;
-                transform: scale3d(1.03, 1.03, 1.03);
-            }
-            80% {
-                transform: scale3d(.97, .97, .97);
-            }
-            100% {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
-        }
-        .title {
-            font-family: 'Jhon Cream', cursive;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        .slogan {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-            color: #6c757d; /* Gray color */
-            margin-top: -10px;
-        }
+    @font-face {
+      font-family: 'Jhon Cream';
+      src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .bounce-in {
+      animation: bounceIn 2s ease-in-out;
+    }
+    @keyframes bounceIn {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+      }
+      0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+      }
+      20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+      40% {
+        transform: scale3d(.9, .9, .9);
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+      }
+      80% {
+        transform: scale3d(.97, .97, .97);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+      }
+    }
+    .title {
+      font-family: 'Jhon Cream', cursive;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .slogan {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      color: #6c757d; /* Gray color */
+      margin-top: -10px;
+    }
   </style>
- </head>
- <body class="bg-white flex items-center justify-center min-h-screen fade-in">
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen fade-in">
   <div class="w-80">
-   <div class="text-center mb-6">
-    <img 
-    alt="Ícone do aplicativo CashXP" 
-    class="mx-auto mb-4" 
-    src="https://res.cloudinary.com/dfjdlqyjl/image/upload/v1736551528/_4f084558-0b7b-44a5-a1c4-899e64761b06-removebg_ds0ovz.png" 
-    width="150" 
-    height="150"/>
-    <h1 class="title">
-     <span style="color: #28a745;">
-      Cash
-     </span>
-     <span style="color: #FFD700;">
-      XP
-     </span>
-    </h1>
-    <p class="slogan">
-     Jogue, Divirta-se, Lucre!
-    </p>
-   </div>
-   <div class="mb-4">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="seuemail00@gmail.com" type="email"/>
-   </div>
-   <div class="mb-4">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
-   </div>
-   <div class="mb-4">
-    <button class="w-full p-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700">
-     Entrar
-    </button>
-   </div>
-   <div class="text-center mb-6">
-    <a class="text-sm text-gray-500" href="#">
-     Esqueceu sua senha?
-    </a>
-   </div>
-   <div>
-    <button class="w-full p-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700" onclick="window.location.href='cadastro.html'">
-     Cadastrar
-    </button>
-   </div>
+    <div class="text-center mb-6">
+      <img 
+        alt="Ícone do aplicativo CashXP" 
+        class="mx-auto mb-4" 
+        src="https://res.cloudinary.com/dfjdlqyjl/image/upload/v1736551528/_4f084558-0b7b-44a5-a1c4-899e64761b06-removebg_ds0ovz.png" 
+        width="150" 
+        height="150"/>
+      <h1 class="title">
+        <span style="color: #28a745;">
+          Cash
+        </span>
+        <span style="color: #FFD700;">
+          XP
+        </span>
+      </h1>
+      <p class="slogan">
+        Jogue, Divirta-se, Lucre!
+      </p>
+    </div>
+    <div class="mb-4">
+      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="seuemail00@gmail.com" type="email"/>
+    </div>
+    <div class="mb-4">
+      <input id="password" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
+    </div>
+    <div class="mb-4">
+      <button id="loginButton" class="w-full p-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700">
+        Entrar
+      </button>
+    </div>
+    <div class="text-center mb-6">
+      <a class="text-sm text-gray-500" href="#">
+        Esqueceu sua senha?
+      </a>
+    </div>
+    <div>
+      <button class="w-full p-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700" onclick="window.location.href='cadastro.html'">
+        Cadastrar
+      </button>
+    </div>
   </div>
- </body>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvlf-I6K4eChd2cA2Mte9OZyyoh2IQjrU",
+      authDomain: "cashxp-57c62.firebaseapp.com",
+      databaseURL: "https://cashxp-57c62-default-rtdb.firebaseio.com",
+      projectId: "cashxp-57c62",
+      storageBucket: "cashxp-57c62.firebasestorage.app",
+      messagingSenderId: "833910851677",
+      appId: "1:833910851677:web:a0e2f10bec9018243025b4",
+      measurementId: "G-PYG0ZYX2SC"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Login function
+    document.getElementById('loginButton').addEventListener('click', function() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Login successful
+          window.location.href = 'dashboard.html';
+        })
+        .catch((error) => {
+          // Handle errors here
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(`Error: ${errorMessage}`);
+        });
+    });
+  </script>
+</body>
 </html>
