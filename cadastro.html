@@ -1,305 +1,324 @@
 <html>
- <head>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <style>
-   @font-face {
-            font-family: 'Jhon Cream';
-            src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .fade-in {
-            animation: fadeIn 2s ease-in-out;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .bounce-in {
-            animation: bounceIn 2s ease-in-out;
-        }
-        @keyframes bounceIn {
-            0%, 20%, 40%, 60%, 80%, 100% {
-                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-            }
-            0% {
-                opacity: 0;
-                transform: scale3d(.3, .3, .3);
-            }
-            20% {
-                transform: scale3d(1.1, 1.1, 1.1);
-            }
-            40% {
-                transform: scale3d(.9, .9, .9);
-            }
-            60% {
-                opacity: 1;
-                transform: scale3d(1.03, 1.03, 1.03);
-            }
-            80% {
-                transform: scale3d(.97, .97, .97);
-            }
-            100% {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
-        }
-        .title {
-            font-family: 'Jhon Cream', cursive;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        .slogan {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-            color: #6c757d; /* Gray color */
-            margin-top: -10px;
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #f9f9f9;
-            color: #333;
-            text-align: left;
-            border-radius: 6px;
-            padding: 10px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; /* Position the tooltip above the text */
-            left: 50%;
-            margin-left: -100px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #f9f9f9 transparent transparent transparent;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-            max-width: 500px;
-            border-radius: 10px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    @font-face {
+      font-family: 'Jhon Cream';
+      src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .bounce-in {
+      animation: bounceIn 2s ease-in-out;
+    }
+    @keyframes bounceIn {
+      0%, 20%, 40%, 60%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+      }
+      0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+      }
+      20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+      40% {
+        transform: scale3d(.9, .9, .9);
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+      }
+      80% {
+        transform: scale3d(.97, .97, .97);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+      }
+    }
+    .title {
+      font-family: 'Jhon Cream', cursive;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .slogan {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      color: #6c757d; /* Gray color */
+      margin-top: -10px;
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: left;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* Position the tooltip above the text */
+      left: 50%;
+      margin-left: -100px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #f9f9f9 transparent transparent transparent;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; 
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; 
+      max-width: 500px;
+      border-radius: 10px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
   <script>
-   function handlePaymentChange() {
-        const paymentMethod = document.getElementById('payment-method').value;
-        const pixField = document.getElementById('pix-field');
-        const paypalField = document.getElementById('paypal-field');
+    function handlePaymentChange() {
+      const paymentMethod = document.getElementById('payment-method').value;
+      const pixField = document.getElementById('pix-field');
+      const paypalField = document.getElementById('paypal-field');
 
-        if (paymentMethod === 'pix') {
-            pixField.style.display = 'block';
-            paypalField.style.display = 'none';
-        } else if (paymentMethod === 'paypal') {
-            pixField.style.display = 'none';
-            paypalField.style.display = 'block';
-        } else {
-            pixField.style.display = 'none';
-            paypalField.style.display = 'none';
-        }
+      if (paymentMethod === 'pix') {
+        pixField.style.display = 'block';
+        paypalField.style.display = 'none';
+      } else if (paymentMethod === 'paypal') {
+        pixField.style.display = 'none';
+        paypalField.style.display = 'block';
+      } else {
+        pixField.style.display = 'none';
+        paypalField.style.display = 'none';
+      }
     }
 
     function showModal(id) {
-        document.getElementById(id).style.display = 'block';
+      document.getElementById(id).style.display = 'block';
     }
 
     function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
+      document.getElementById(id).style.display = 'none';
     }
   </script>
- </head>
- <body class="bg-white flex items-center justify-center min-h-screen fade-in">
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen fade-in">
   <div class="w-80">
-   <div class="text-center mb-6">
-    <img 
-    alt="Ícone do aplicativo CashXP" 
-    class="mx-auto mb-4 app-logo" 
-    src="https://res.cloudinary.com/dfjdlqyjl/image/upload/v1736551528/_4f084558-0b7b-44a5-a1c4-899e64761b06-removebg_ds0ovz.png" 
-    width="150" 
-    height="150" 
-    style="max-width: 100%; height: auto;"/>
-    <h1 class="title">
-     <span style="color: #28a745;">
-      Cash
-     </span>
-     <span style="color: #FFD700;">
-      XP
-     </span>
-    </h1>
-    <p class="slogan">
-     Jogue, Divirta-se, Lucre!
-    </p>
-   </div>
-   <div class="mb-4 flex items-center">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome Completo" type="text"/>
-    <div class="tooltip ml-2" onclick="showModal('modal-nome-completo')">
-     <i class="fas fa-info-circle text-gray-500">
-     </i>
+    <div class="text-center mb-6">
+      <img 
+        alt="Ícone do aplicativo CashXP" 
+        class="mx-auto mb-4 app-logo" 
+        src="https://res.cloudinary.com/dfjdlqyjl/image/upload/v1736551528/_4f084558-0b7b-44a5-a1c4-899e64761b06-removebg_ds0ovz.png" 
+        width="150" 
+        height="150" 
+        style="max-width: 100%; height: auto;"/>
+      <h1 class="title">
+        <span style="color: #28a745;">
+          Cash
+        </span>
+        <span style="color: #FFD700;">
+          XP
+        </span>
+      </h1>
+      <p class="slogan">
+        Jogue, Divirta-se, Lucre!
+      </p>
     </div>
-   </div>
-   <div class="mb-4 flex items-center">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail" type="email"/>
-    <div class="tooltip ml-2" onclick="showModal('modal-email')">
-     <i class="fas fa-info-circle text-gray-500">
-     </i>
+    <div class="mb-4 flex items-center">
+      <input id="fullName" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome Completo" type="text"/>
+      <div class="tooltip ml-2" onclick="showModal('modal-nome-completo')">
+        <i class="fas fa-info-circle text-gray-500"></i>
+      </div>
     </div>
-   </div>
-   <div class="mb-4 flex items-center">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
-    <div class="tooltip ml-2" onclick="showModal('modal-senha')">
-     <i class="fas fa-info-circle text-gray-500">
-     </i>
+    <div class="mb-4 flex items-center">
+      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail" type="email"/>
+      <div class="tooltip ml-2" onclick="showModal('modal-email')">
+        <i class="fas fa-info-circle text-gray-500"></i>
+      </div>
     </div>
-   </div>
-   <div class="mb-4 flex items-center">
-    <select class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" id="payment-method" onchange="handlePaymentChange()">
-     <option value="">
-      Selecione a forma de pagamento
-     </option>
-     <option value="pix">
-      <i class="fas fa-money-bill-wave">
-      </i>
-      PIX
-     </option>
-     <option value="paypal">
-      <i class="fab fa-paypal">
-      </i>
-      PayPal
-     </option>
-    </select>
-    <div class="tooltip ml-2" onclick="showModal('modal-pagamento')">
-     <i class="fas fa-info-circle text-gray-500">
-     </i>
+    <div class="mb-4 flex items-center">
+      <input id="password" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
+      <div class="tooltip ml-2" onclick="showModal('modal-senha')">
+        <i class="fas fa-info-circle text-gray-500"></i>
+      </div>
     </div>
-   </div>
-   <div class="mb-4" id="pix-field" style="display: none;">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe a sua chave PIX" type="text"/>
-   </div>
-   <div class="mb-4" id="paypal-field" style="display: none;">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail da sua conta do PayPal" type="email"/>
-   </div>
-   <div class="mb-4">
-    <button class="w-full p-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700">
-     Cadastrar
-    </button>
-   </div>
-   <div class="text-center">
-    <p class="text-sm text-gray-500">
-     Já possui uma conta?
-     <a class="text-blue-500 hover:underline" href="login.html">
-      Faça o login
-     </a>
-    </p>
-   </div>
+    <div class="mb-4 flex items-center">
+      <select id="payment-method" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="handlePaymentChange()">
+        <option value="">Selecione a forma de pagamento</option>
+        <option value="pix">PIX</option>
+        <option value="paypal">PayPal</option>
+      </select>
+      <div class="tooltip ml-2" onclick="showModal('modal-pagamento')">
+        <i class="fas fa-info-circle text-gray-500"></i>
+      </div>
+    </div>
+    <div class="mb-4" id="pix-field" style="display: none;">
+      <input id="pixKey" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe a sua chave PIX" type="text"/>
+    </div>
+    <div class="mb-4" id="paypal-field" style="display: none;">
+      <input id="paypalEmail" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail da sua conta do PayPal" type="email"/>
+    </div>
+    <div class="mb-4">
+      <button id="registerButton" class="w-full p-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700">
+        Cadastrar
+      </button>
+    </div>
+    <div class="text-center">
+      <p class="text-sm text-gray-500">
+        Já possui uma conta?
+        <a class="text-blue-500 hover:underline" href="login.html">Faça o login</a>
+      </p>
+    </div>
   </div>
   <!-- Modals -->
   <div class="modal" id="modal-nome-completo">
-   <div class="modal-content">
-    <span class="close" onclick="closeModal('modal-nome-completo')">
-     ×
-    </span>
-    <p>
-     Insira o Seu Nome Completo para facilitar a sua identificação no momento do pagamento e garantir um processo mais rápido e seguro!
-    </p>
-   </div>
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-nome-completo')">×</span>
+      <p>Insira o Seu Nome Completo para facilitar a sua identificação no momento do pagamento e garantir um processo mais rápido e seguro!</p>
+    </div>
   </div>
   <div class="modal" id="modal-email">
-   <div class="modal-content">
-    <span class="close" onclick="closeModal('modal-email')">
-     ×
-    </span>
-    <p>
-     Informe seu E-mail para realizar o seu login no App e facilitar nosso contato com você, garantindo uma comunicação rápida e eficiente para resolver qualquer problema ou fornecer suporte adicional.
-    </p>
-   </div>
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-email')">×</span>
+      <p>Informe seu E-mail para realizar o seu login no App e facilitar nosso contato com você, garantindo uma comunicação rápida e eficiente para resolver qualquer problema ou fornecer suporte adicional.</p>
+    </div>
   </div>
   <div class="modal" id="modal-senha">
-   <div class="modal-content">
-    <span class="close" onclick="closeModal('modal-senha')">
-     ×
-    </span>
-    <p>
-     Informe sua Senha para realizar o login no app junto com seu e-mail, garantindo a segurança da sua conta e das recompensas obtidas.
-     <b>
-      A senha deve ter no mínimo 6 caracteres para garantir a proteção adequada.
-     </b>
-    </p>
-   </div>
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-senha')">×</span>
+      <p>Informe sua Senha para realizar o login no app junto com seu e-mail, garantindo a segurança da sua conta e das recompensas obtidas. <b>A senha deve ter no mínimo 6 caracteres para garantir a proteção adequada.</b></p>
+    </div>
   </div>
   <div class="modal" id="modal-pagamento">
-   <div class="modal-content">
-    <span class="close" onclick="closeModal('modal-pagamento')">
-     ×
-    </span>
-    <p>
-     Selecione a forma de pagamento desejada e certifique-se de inserir os dados corretamente, pois uma vez registrados, não poderão ser alterados.
-     <br/>
-     <br/>
-     <b>
-      Para Pix:
-     </b>
-     Insira sua chave Pix (CPF, CNPJ, E-mail, Telefone ou Chave Aleatória).
-     <br/>
-     <br/>
-     <b>
-      Para PayPal:
-     </b>
-     Insira o endereço de e-mail da sua conta do PayPal.
-     <br/>
-     <br/>
-     <b>
-      Garanta que todos os dados estão corretos para evitar problemas no processamento dos seus pagamentos.
-     </b>
-    </p>
-   </div>
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-pagamento')">×</span>
+      <p>Selecione a forma de pagamento desejada e certifique-se de inserir os dados corretamente, pois uma vez registrados, não poderão ser alterados.
+        <br/><br/>
+        <b>Para Pix:</b> Insira sua chave Pix (CPF, CNPJ, E-mail, Telefone ou Chave Aleatória).
+        <br/><br/>
+        <b>Para PayPal:</b> Insira o endereço de e-mail da sua conta do PayPal.
+        <br/><br/>
+        <b>Garanta que todos os dados estão corretos para evitar problemas no processamento dos seus pagamentos.</b>
+      </p>
+    </div>
   </div>
- </body>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvlf-I6K4eChd2cA2Mte9OZyyoh2IQjrU",
+      authDomain: "cashxp-57c62.firebaseapp.com",
+      databaseURL: "https://cashxp-57c62-default-rtdb.firebaseio.com",
+      projectId: "cashxp-57c62",
+      storageBucket: "cashxp-57c62.firebasestorage.app",
+      messagingSenderId: "833910851677",
+      appId: "1:833910851677:web:a0e2f10bec9018243025b4",
+      measurementId: "G-PYG0ZYX2SC"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Register function
+    document.getElementById('registerButton').addEventListener('click', function() {
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const paymentMethod = document.getElementById('payment-method').value;
+      const pixKey = document.getElementById('pixKey').value;
+      const paypalEmail = document.getElementById('paypalEmail').value;
+
+      if (!fullName || !email || !password || !paymentMethod) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+      }
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          const userId = user.uid;
+          const userData = {
+            fullName: fullName,
+            email: email,
+            paymentMethod: paymentMethod,
+            paymentKey: paymentMethod === 'pix' ? pixKey : paypalEmail,
+            cashCoins: 0,
+            banned: false,
+            ads: 0,
+            hours: 0,
+            withdrawals: 0,
+            registrationDate: new Date().toISOString()
+          };
+
+          firebase.database().ref('Users/' + userId).set(userData)
+            .then(() => {
+              alert('Cadastro realizado com sucesso!');
+              window.location.href = 'login.html';
+            })
+            .catch((error) => {
+              alert('Erro ao salvar os dados do usuário: ' + error.message);
+            });
+        })
+        .catch((error) => {
+          alert('Erro ao criar usuário: ' + error.message);
+        });
+    });
+  </script>
+</body>
 </html>
