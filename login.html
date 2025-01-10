@@ -1,69 +1,105 @@
 <html>
  <head>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
-   @font-face {
-            font-family: 'Jhon Cream';
-            src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
+    @font-face {
+        font-family: 'Jhon Cream';
+        src: url('https://raw.githubusercontent.com/KTechnologya/Xh4pC5/main/Jhon%20Cream.ttf') format('truetype');
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .fade-in {
+        animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .bounce-in {
+        animation: bounceIn 2s ease-in-out;
+    }
+    @keyframes bounceIn {
+        0%, 20%, 40%, 60%, 80%, 100% {
+            animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
         }
-        body {
-            font-family: 'Roboto', sans-serif;
+        0% {
+            opacity: 0;
+            transform: scale3d(.3, .3, .3);
         }
-        .fade-in {
-            animation: fadeIn 2s ease-in-out;
+        20% {
+            transform: scale3d(1.1, 1.1, 1.1);
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        40% {
+            transform: scale3d(.9, .9, .9);
         }
-        .bounce-in {
-            animation: bounceIn 2s ease-in-out;
+        60% {
+            opacity: 1;
+            transform: scale3d(1.03, 1.03, 1.03);
         }
-        @keyframes bounceIn {
-            0%, 20%, 40%, 60%, 80%, 100% {
-                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-            }
-            0% {
-                opacity: 0;
-                transform: scale3d(.3, .3, .3);
-            }
-            20% {
-                transform: scale3d(1.1, 1.1, 1.1);
-            }
-            40% {
-                transform: scale3d(.9, .9, .9);
-            }
-            60% {
-                opacity: 1;
-                transform: scale3d(1.03, 1.03, 1.03);
-            }
-            80% {
-                transform: scale3d(.97, .97, .97);
-            }
-            100% {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
+        80% {
+            transform: scale3d(.97, .97, .97);
         }
+        100% {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+    }
+    .title {
+        font-family: 'Jhon Cream', cursive;
+        font-size: 4vw; /* Tornando a fonte responsiva */
+        font-weight: 700;
+        color: #28a745; /* Green color similar to money */
+    }
+    .slogan {
+        font-family: 'Roboto', sans-serif;
+        font-size: 2vw; /* Tornando o slogan responsivo */
+        color: #6c757d; /* Gray color */
+        margin-top: -5px;
+    }
+    .input-field {
+        font-size: 1.1rem;
+        padding: 12px;
+        border-radius: 9999px;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
+    .btn {
+        font-size: 1.1rem;
+        padding: 12px;
+        border-radius: 9999px;
+        width: 100%;
+    }
+    .btn-blue {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-blue:hover {
+        background-color: #0056b3;
+    }
+    .btn-orange {
+        background-color: #fd7e14;
+        color: white;
+    }
+    .btn-orange:hover {
+        background-color: #e96c00;
+    }
+    @media (max-width: 480px) {
         .title {
-            font-family: 'Jhon Cream', cursive;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #28a745; /* Green color similar to money */
+            font-size: 6vw;
         }
         .slogan {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-            color: #6c757d; /* Gray color */
-            margin-top: -10px;
+            font-size: 3.5vw;
         }
+    }
   </style>
  </head>
  <body class="bg-white flex items-center justify-center min-h-screen fade-in">
-  <div class="w-full max-w-xs mx-auto">
+  <div class="w-full max-w-md mx-auto px-4">
    <div class="text-center mb-6">
     <img alt="Ícone do aplicativo CashXP" class="mx-auto mb-4" src="https://placehold.co/50x50"/>
     <h1 class="title">
@@ -74,13 +110,13 @@
     </p>
    </div>
    <div class="mb-4">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="seuemail00@gmail.com" type="email"/>
+    <input class="input-field" placeholder="seuemail00@gmail.com" type="email"/>
    </div>
    <div class="mb-4">
-    <input class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
+    <input class="input-field" placeholder="Senha" type="password"/>
    </div>
    <div class="mb-4">
-    <button class="w-full p-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700">
+    <button class="btn btn-blue">
      Entrar
     </button>
    </div>
@@ -90,7 +126,7 @@
     </a>
    </div>
    <div>
-    <button class="w-full p-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700" onclick="window.location.href='cadastro.html'">
+    <button class="btn btn-orange" onclick="window.location.href='cadastro.html'">
      Cadastrar
     </button>
    </div>
