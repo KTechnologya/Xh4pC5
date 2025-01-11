@@ -244,7 +244,7 @@
                 window.location.href = 'banido.html';
               } else {
                 const cashCoins = userData.CashCoins;
-                document.getElementById('cashCoins').textContent = parseFloat(cashCoins.replace(',', '.')).toFixed(5);
+                document.getElementById('cashCoins').textContent = parseFloat(cashCoins).toFixed(5);
               }
             });
           } else {
