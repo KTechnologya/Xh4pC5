@@ -38,7 +38,7 @@
         <div class="text-right">
           <button class="text-white text-lg font-semibold flex items-center" id="cashCoinsBtn">
             <i class="fas fa-coins text-yellow-500 mr-2"></i>
-            <span class="text-yellow-500" id="cashCoins">0,00000</span>
+            <span class="text-yellow-500" id="cashCoins">0.00000</span>
           </button>
         </div>
       </div>
@@ -240,7 +240,7 @@
 
             cashCoinsRef.on('value', (snapshot) => {
               const cashCoins = snapshot.val();
-              document.getElementById('cashCoins').textContent = parseFloat(cashCoins).toFixed(5);
+              document.getElementById('cashCoins').textContent = parseFloat(cashCoins.replace(',', '.')).toFixed(5);
             });
           } else {
             // Nenhum usuário está logado, redirecionar para a página de login
