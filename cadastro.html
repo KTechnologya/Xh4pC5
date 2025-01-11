@@ -289,35 +289,46 @@
         return;
       }
 
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          const userId = user.uid;
-          const userData = {
-            fullName: fullName,
-            email: email,
-            paymentMethod: paymentMethod,
-            paymentKey: paymentMethod === 'pix' ? pixKey : paypalEmail,
-            cashCoins: 0,
-            banned: false,
-            ads: 0,
-            hours: 0,
-            withdrawals: 0,
-            registrationDate: new Date().toISOString()
-          };
+      // Check if full name already exists
+      firebase.database().ref('Users').orderByChild('fullName').equalTo(fullName).once('value', snapshot => {
+        if (snapshot.exists()) {
+          alert('O nome completo já está em uso. Por favor, entre em contato com o suporte via e-mail: commercial.ktechnology@gmail.com');
+        } else {
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              const userId = user.uid;
+              const userData = {
+                fullName: fullName,
+                email: email,
+                paymentMethod: paymentMethod,
+                paymentKey: paymentMethod === 'pix' ? pixKey : paypalEmail,
+                cashCoins: 0,
+                banned: false,
+                ads: 0,
+                hours: 0,
+                withdrawals: 0,
+                registrationDate: new Date().toLocaleDateString('pt-BR')
+              };
 
-          firebase.database().ref('Users/' + userId).set(userData)
-            .then(() => {
-              alert('Cadastro realizado com sucesso!');
-              window.location.href = 'login.html';
+              firebase.database().ref('Users/' + userId).set(userData)
+                .then(() => {
+                  alert('Cadastro realizado com sucesso!');
+                  window.location.href = 'login.html';
+                })
+                .catch((error) => {
+                  alert('Erro ao salvar os dados do usuário: ' + error.message);
+                });
             })
             .catch((error) => {
-              alert('Erro ao salvar os dados do usuário: ' + error.message);
+              if (error.code === 'auth/email-already-in-use') {
+                alert('O e-mail já está em uso. Por favor, insira outro endereço de e-mail.');
+              } else {
+                alert('Erro ao criar usuário: ' + error.message);
+              }
             });
-        })
-        .catch((error) => {
-          alert('Erro ao criar usuário: ' + error.message);
-        });
+        }
+      });
     });
   </script>
 </body>
