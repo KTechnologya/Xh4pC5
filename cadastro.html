@@ -163,6 +163,13 @@
       errorMessage.textContent = message;
       errorModal.style.display = 'block';
     }
+
+    function showSuccessModal(message) {
+      const successModal = document.getElementById('modal-success');
+      const successMessage = document.getElementById('success-message');
+      successMessage.textContent = message;
+      successModal.style.display = 'block';
+    }
   </script>
 </head>
 <body class="bg-white flex items-center justify-center min-h-screen fade-in">
@@ -271,6 +278,12 @@
       <p id="error-message"></p>
     </div>
   </div>
+  <div class="modal" id="modal-success">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-success')">×</span>
+      <p id="success-message"></p>
+    </div>
+  </div>
 
   <script>
     // Your web app's Firebase configuration
@@ -326,8 +339,10 @@
 
               firebase.database().ref('Users/' + userId).set(userData)
                 .then(() => {
-                  alert('Cadastro realizado com sucesso!');
-                  window.location.href = 'login.html';
+                  showSuccessModal('Cadastro realizado com sucesso!');
+                  setTimeout(() => {
+                    window.location.href = 'login.html';
+                  }, 2000);
                 })
                 .catch((error) => {
                   showErrorModal('Erro ao salvar os dados do usuário: ' + error.message);
