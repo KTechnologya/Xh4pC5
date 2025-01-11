@@ -140,7 +140,7 @@
       </p>
     </div>
     <div class="mb-4">
-      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail" type="email" required/>
+      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="seuemail00@gmail.com" type="email" required/>
     </div>
     <div class="mb-4">
       <input id="password" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password" required/>
@@ -214,6 +214,10 @@
             showErrorModal('Não conseguimos encontrar uma conta registrada a esse e-mail, por favor crie uma conta.');
           } else if (errorCode === 'auth/wrong-password') {
             showErrorModal('Senha inválida, por favor verifique e tente novamente ou clique em "Esqueceu sua senha?" para redefinir a sua senha.');
+          } else if (errorCode === 'auth/invalid-email') {
+            showErrorModal('O endereço de e-mail não é válido.');
+          } else if (errorCode === 'auth/user-disabled') {
+            showErrorModal('Esta conta foi desativada.');
           } else {
             showErrorModal(`Erro: ${error.message}`);
           }
