@@ -325,16 +325,16 @@
               const user = userCredential.user;
               const userId = user.uid;
               const userData = {
-                fullName: fullName,
+                nome: fullName,
                 email: email,
-                paymentMethod: paymentMethod,
-                paymentKey: paymentMethod === 'pix' ? pixKey : paypalEmail,
+                pagamento: paymentMethod,
+                chave: paymentMethod === 'pix' ? pixKey : paypalEmail,
                 cashCoins: 0,
-                banned: false,
-                ads: 0,
-                hours: 0,
-                withdrawals: 0,
-                registrationDate: new Date().toLocaleDateString('pt-BR')
+                banido: false,
+                anuncios: 0,
+                horas: 0,
+                retiradas: 0,
+                cadastro: new Date().toLocaleDateString('pt-BR')
               };
 
               firebase.database().ref('Users/' + userId).set(userData)
