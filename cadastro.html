@@ -156,6 +156,13 @@
     function closeModal(id) {
       document.getElementById(id).style.display = 'none';
     }
+
+    function showErrorModal(message) {
+      const errorModal = document.getElementById('modal-error');
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.textContent = message;
+      errorModal.style.display = 'block';
+    }
   </script>
 </head>
 <body class="bg-white flex items-center justify-center min-h-screen fade-in">
@@ -181,25 +188,25 @@
       </p>
     </div>
     <div class="mb-4 flex items-center">
-      <input id="fullName" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome Completo" type="text"/>
+      <input id="fullName" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome Completo" type="text" required/>
       <div class="tooltip ml-2" onclick="showModal('modal-nome-completo')">
         <i class="fas fa-info-circle text-gray-500"></i>
       </div>
     </div>
     <div class="mb-4 flex items-center">
-      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail" type="email"/>
+      <input id="email" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="E-mail" type="email" required/>
       <div class="tooltip ml-2" onclick="showModal('modal-email')">
         <i class="fas fa-info-circle text-gray-500"></i>
       </div>
     </div>
     <div class="mb-4 flex items-center">
-      <input id="password" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password"/>
+      <input id="password" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha" type="password" required/>
       <div class="tooltip ml-2" onclick="showModal('modal-senha')">
         <i class="fas fa-info-circle text-gray-500"></i>
       </div>
     </div>
     <div class="mb-4 flex items-center">
-      <select id="payment-method" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="handlePaymentChange()">
+      <select id="payment-method" class="w-full p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="handlePaymentChange()" required>
         <option value="">Selecione a forma de pagamento</option>
         <option value="pix">PIX</option>
         <option value="paypal">PayPal</option>
@@ -258,6 +265,12 @@
       </p>
     </div>
   </div>
+  <div class="modal" id="modal-error">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal-error')">×</span>
+      <p id="error-message"></p>
+    </div>
+  </div>
 
   <script>
     // Your web app's Firebase configuration
@@ -285,14 +298,14 @@
       const paypalEmail = document.getElementById('paypalEmail').value;
 
       if (!fullName || !email || !password || !paymentMethod) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
+        showErrorModal('Por favor, preencha todos os campos obrigatórios.');
         return;
       }
 
       // Check if full name already exists
       firebase.database().ref('Users').orderByChild('fullName').equalTo(fullName).once('value', snapshot => {
         if (snapshot.exists()) {
-          alert('O nome completo já está em uso. Por favor, entre em contato com o suporte via e-mail: commercial.ktechnology@gmail.com');
+          showErrorModal('O nome completo já está em uso. Por favor, entre em contato com o suporte via e-mail: commercial.ktechnology@gmail.com');
         } else {
           firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
@@ -317,14 +330,14 @@
                   window.location.href = 'login.html';
                 })
                 .catch((error) => {
-                  alert('Erro ao salvar os dados do usuário: ' + error.message);
+                  showErrorModal('Erro ao salvar os dados do usuário: ' + error.message);
                 });
             })
             .catch((error) => {
               if (error.code === 'auth/email-already-in-use') {
-                alert('O e-mail já está em uso. Por favor, insira outro endereço de e-mail.');
+                showErrorModal('O e-mail já está em uso. Por favor, insira outro endereço de e-mail.');
               } else {
-                alert('Erro ao criar usuário: ' + error.message);
+                showErrorModal('Erro ao criar usuário: ' + error.message);
               }
             });
         }
