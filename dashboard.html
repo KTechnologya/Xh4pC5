@@ -236,11 +236,16 @@
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             const userId = user.uid;
-            const cashCoinsRef = firebase.database().ref('Users/' + userId + '/CashCoins');
+            const userRef = firebase.database().ref('Users/' + userId);
 
-            cashCoinsRef.on('value', (snapshot) => {
-              const cashCoins = snapshot.val();
-              document.getElementById('cashCoins').textContent = parseFloat(cashCoins.replace(',', '.')).toFixed(5);
+            userRef.on('value', (snapshot) => {
+              const userData = snapshot.val();
+              if (userData.Banido) {
+                window.location.href = 'banido.html';
+              } else {
+                const cashCoins = userData.CashCoins;
+                document.getElementById('cashCoins').textContent = parseFloat(cashCoins.replace(',', '.')).toFixed(5);
+              }
             });
           } else {
             // Nenhum usuário está logado, redirecionar para a página de login
