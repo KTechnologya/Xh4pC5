@@ -209,8 +209,14 @@
         })
         .catch((error) => {
           // Handle errors here
-          const errorMessage = error.message;
-          showErrorModal(`Erro: ${errorMessage}`);
+          const errorCode = error.code;
+          if (errorCode === 'auth/user-not-found') {
+            showErrorModal('Não conseguimos encontrar uma conta registrada a esse e-mail, por favor crie uma conta.');
+          } else if (errorCode === 'auth/wrong-password') {
+            showErrorModal('Senha inválida, por favor verifique e tente novamente ou clique em "Esqueceu sua senha?" para redefinir a sua senha.');
+          } else {
+            showErrorModal(`Erro: ${error.message}`);
+          }
         });
     });
 
