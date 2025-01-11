@@ -218,7 +218,7 @@
             console.log('Favoritos:', favorites);
         }
 
-        // Initialize Firebase
+        // Inicializar Firebase
         const firebaseConfig = {
           apiKey: "AIzaSyCvlf-I6K4eChd2cA2Mte9OZyyoh2IQjrU",
           authDomain: "cashxp-57c62.firebaseapp.com",
@@ -232,18 +232,18 @@
 
         firebase.initializeApp(firebaseConfig);
 
-        // Get current user
+        // Obter usuário atual
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             const userId = user.uid;
-            const cashCoinsRef = firebase.database().ref('Users/' + userId + '/cashCoins');
+            const cashCoinsRef = firebase.database().ref('Users/' + userId + '/CashCoins');
 
             cashCoinsRef.on('value', (snapshot) => {
               const cashCoins = snapshot.val();
-              document.getElementById('cashCoins').textContent = cashCoins.toFixed(5);
+              document.getElementById('cashCoins').textContent = parseFloat(cashCoins).toFixed(5);
             });
           } else {
-            // No user is signed in, redirect to login page
+            // Nenhum usuário está logado, redirecionar para a página de login
             window.location.href = 'login.html';
           }
         });
